@@ -1,0 +1,48 @@
+<div class="to-do-list">
+  <div class="header">To-Do List</div>
+  <div class="enter-your-task">
+    <input
+      class="enter-task"
+      type="text"
+      placeholder="Enter your task"
+      [(ngModel)]="newTask.title"
+    />
+    <button class="button-add" (click)="addTask()" *ngIf="isEdit === false">
+      Add
+    </button>
+    <button
+      class="button-cancel"
+      (click)="cancelEdit()"
+      *ngIf="isEdit === true"
+    >
+      Cancel
+    </button>
+    <button
+      class="button-save"
+      (click)="saveEditedTask()"
+      *ngIf="isEdit === true"
+    >
+      Save
+    </button>
+  </div>
+
+  <div class="current-tasks">Current Tasks: {{ tasks.length }}</div>
+  <div class="task" *ngFor="let task of tasks; index as i">
+    <span [ngClass]="task.isDone === true ? 'completed-task' : ''"
+      >{{ i + 1 + ". " + task.title | slice : 0 : 30 }}
+      {{ task.title.length > 30 ? "..." : "" }}</span
+    >
+    <div class="task-buttons">
+      <button class="button-edit task-button" (click)="openEdit(task, i)">
+        Edit
+      </button>
+      <button class="button-delete task-button" (click)="deleteTask(i)">
+        Delete
+      </button>
+      <button class="button-done task-button" (click)="setTaskAsDone(i)">
+        Done
+      </button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,83 @@
+.completed-task { 
+    opacity: 0.7;
+    text-decoration: line-through;
+}
+
+button {
+    cursor: pointer;
+    }
+
+.to-do-list { 
+    padding-top: 32px;
+    width: 50%;
+    margin: 0 auto;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background: rgb(226, 194, 251);
+    color:rgb(51, 44, 55);
+    padding-left: 2%;
+    padding-right: 2%;
+    min-height: 350px;
+    border-radius: 5px;
+    
+}
+
+.header {
+    color: white;
+    background: rgb(113, 83, 187);
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.enter-your-task { 
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px
+}
+
+.enter-task { 
+    width: 50%;
+    padding: 0 10px;
+    outline: none;
+    border: #ffffff;
+    border-radius: 5px 0px 0px 5px;
+    height: 32px;
+}
+
+.button-add, .button-save, .button-cancel { 
+background: rgb(133, 48, 167);
+color: white;
+border-radius: 0px 5px 5px 0px;
+border: 2px solid #ffffff;
+height: 32px;
+width: 20%;
+}
+
+.button-cancel { 
+    border-radius: 0px 0px 0px 0px;
+}
+
+.current-tasks { 
+    margin-bottom: 10px;
+}
+
+.task {
+    width: 86%;
+display: flex;
+justify-content:space-between;
+margin-bottom: 10px;
+
+}
+
+.task-buttons { 
+    min-width: 30%;
+}
+
+.task-button { 
+    margin-left:3px;
+    background: rgb(133, 48, 167);
+color: white;
+border-radius: 5px 5px 5px 5px;
+border: 2px solid #ffffff;
+height: 24px;
+
+}
