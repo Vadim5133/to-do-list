@@ -14,12 +14,32 @@ export class TasksListComponent implements OnInit {
     isDone: false,
   };
 
+  searchValue: string = '';
+
+  filteredTasks: Task[] = [];
+
   editedIndex!: number;
+
+  isOnlyCurrentTasks: boolean = false;
 
   isEdit: boolean = false;
 
   ngOnInit(): void {
-    // console.log(this.editedIndex);
+    this.tasks = [
+      {
+        title: 'Play',
+        isDone: false,
+      },
+      {
+        title: 'Eat',
+        isDone: false,
+      },
+      {
+        title: 'Sleep',
+        isDone: false,
+      },
+    ];
+    this.filteredTasks = JSON.parse(JSON.stringify(this.tasks));
   }
 
   addTask(): void {
@@ -28,11 +48,13 @@ export class TasksListComponent implements OnInit {
     } else {
       this.tasks.push(JSON.parse(JSON.stringify(this.newTask)));
       this.newTask.title = '';
+      this.filteredTasks = JSON.parse(JSON.stringify(this.tasks));
     }
   }
 
   deleteTask(index: number): void {
     this.tasks.splice(index, 1);
+    this.filteredTasks = JSON.parse(JSON.stringify(this.tasks));
   }
 
   openEdit(task: Task, index: number): void {
@@ -49,6 +71,7 @@ export class TasksListComponent implements OnInit {
     );
     this.isEdit = false;
     this.newTask.title = '';
+    this.filteredTasks = JSON.parse(JSON.stringify(this.tasks));
   }
   cancelEdit() {
     this.newTask.title = '';
@@ -56,8 +79,22 @@ export class TasksListComponent implements OnInit {
   }
 
   setTaskAsDone(index: number) {
-    console.log(this.tasks[index]);
     this.tasks[index].isDone = true;
-    console.log(this.tasks[index]);
+    this.filteredTasks = JSON.parse(JSON.stringify(this.tasks));
+  }
+
+  filterTasks(): void {
+    this.filteredTasks = this.tasks.filter((task) =>
+      task.title.toLowerCase().includes(this.searchValue.toLowerCase())
+    );
+  }
+
+  toggleShownTasks(): void {
+    this.filteredTasks = this.tasks.filter(
+      (task) => task.isDone !== this.isOnlyCurrentTasks
+    );
+    if (this.isOnlyCurrentTasks === false) {
+      this.filteredTasks = this.tasks;
+    }
   }
 }

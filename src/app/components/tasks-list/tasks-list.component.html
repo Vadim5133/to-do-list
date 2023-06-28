@@ -1,5 +1,20 @@
 <div class="to-do-list">
   <div class="header">To-Do List</div>
+  <input
+    class="search-input"
+    type="text"
+    placeholder="search"
+    [(ngModel)]="searchValue"
+    (input)="filterTasks()"
+  />
+  <input
+    type="checkbox"
+    name="done"
+    id="done"
+    [(ngModel)]="isOnlyCurrentTasks"
+    (change)="toggleShownTasks()"
+  />
+  <label for="done">Show only current tasks</label>
   <div class="enter-your-task">
     <input
       class="enter-task"
@@ -7,7 +22,13 @@
       placeholder="Enter your task"
       [(ngModel)]="newTask.title"
     />
-    <button class="button-add" (click)="addTask()" *ngIf="isEdit === false">
+    <button
+      mat-button
+      color="primary"
+      class="animate__animated animate__fadeInLeft animate__fast"
+      (click)="addTask()"
+      *ngIf="isEdit === false"
+    >
       Add
     </button>
     <button
@@ -26,8 +47,16 @@
     </button>
   </div>
 
-  <div class="current-tasks">Current Tasks: {{ tasks.length }}</div>
-  <div class="task" *ngFor="let task of tasks; index as i">
+  <div
+    class="current-tasks animate__animated animate__fadeInLeft animate__fast"
+  >
+    {{ isOnlyCurrentTasks === true ? "Current Tasks:" : "All Tasks:" }}
+    {{ filteredTasks.length }}
+  </div>
+  <div
+    class="task animate__animated animate__fadeInLeft animate__fast"
+    *ngFor="let task of filteredTasks; index as i"
+  >
     <span [ngClass]="task.isDone === true ? 'completed-task' : ''"
       >{{ i + 1 + ". " + task.title | slice : 0 : 30 }}
       {{ task.title.length > 30 ? "..." : "" }}</span
@@ -45,4 +74,3 @@
     </div>
   </div>
 </div>
-

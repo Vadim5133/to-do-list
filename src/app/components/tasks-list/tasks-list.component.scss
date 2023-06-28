@@ -1,3 +1,5 @@
+@import "~animate.css/animate.css";
+
 .completed-task { 
     opacity: 0.7;
     text-decoration: line-through;
@@ -40,6 +42,16 @@ button {
     outline: none;
     border: #ffffff;
     border-radius: 5px 0px 0px 5px;
+    height: 32px;
+}
+
+.search-input { 
+    width: 30%;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    outline: none;
+    border: #ffffff;
+    border-radius: 5px 5px 5px 5px;
     height: 32px;
 }
 
