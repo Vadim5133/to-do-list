@@ -1,76 +1,78 @@
 <div class="to-do-list">
-  <div class="header">To-Do List</div>
-  <input
-    class="search-input"
-    type="text"
-    placeholder="search"
-    [(ngModel)]="searchValue"
-    (input)="filterTasks()"
-  />
-  <input
-    type="checkbox"
-    name="done"
-    id="done"
-    [(ngModel)]="isOnlyCurrentTasks"
-    (change)="toggleShownTasks()"
-  />
-  <label for="done">Show only current tasks</label>
-  <div class="enter-your-task">
-    <input
-      class="enter-task"
-      type="text"
-      placeholder="Enter your task"
-      [(ngModel)]="newTask.title"
-    />
-    <button
-      mat-button
-      color="primary"
-      class="animate__animated animate__fadeInLeft animate__fast"
-      (click)="addTask()"
-      *ngIf="isEdit === false"
-    >
-      Add
-    </button>
-    <button
-      class="button-cancel"
-      (click)="cancelEdit()"
-      *ngIf="isEdit === true"
-    >
-      Cancel
-    </button>
-    <button
-      class="button-save"
-      (click)="saveEditedTask()"
-      *ngIf="isEdit === true"
-    >
-      Save
-    </button>
-  </div>
+  <mat-card>
+    <mat-card-content
+      ><div class="header">To-Do List</div>
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="searchValue" (input)="filterTasks()" />
+      </mat-form-field>
 
-  <div
-    class="current-tasks animate__animated animate__fadeInLeft animate__fast"
-  >
-    {{ isOnlyCurrentTasks === true ? "Current Tasks:" : "All Tasks:" }}
-    {{ filteredTasks.length }}
-  </div>
-  <div
-    class="task animate__animated animate__fadeInLeft animate__fast"
-    *ngFor="let task of filteredTasks; index as i"
-  >
-    <span [ngClass]="task.isDone === true ? 'completed-task' : ''"
-      >{{ i + 1 + ". " + task.title | slice : 0 : 30 }}
-      {{ task.title.length > 30 ? "..." : "" }}</span
+      <mat-checkbox
+        color="primary"
+        [(ngModel)]="isOnlyCurrentTasks"
+        (change)="toggleShownTasks()"
+        >Show only current tasks</mat-checkbox
+      >
+
+      <div class="enter-your-task">
+        <mat-form-field appearance="outline">
+          <mat-label>Enter your task</mat-label>
+          <input matInput [(ngModel)]="newTask.title" />
+        </mat-form-field>
+        <!-- <input class="enter-task" type="text" placeholder="Enter your task" /> -->
+        <button
+          mat-raised-button
+          color="primary"
+          class="animate__animated animate__fadeInLeft animate__fast"
+          (click)="addTask()"
+          *ngIf="isEdit === false"
+        >
+          <mat-icon>add</mat-icon> Add
+        </button>
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="cancelEdit()"
+          *ngIf="isEdit === true"
+        >
+          <mat-icon>close</mat-icon>Cancel
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="saveEditedTask()"
+          *ngIf="isEdit === true"
+        >
+          <mat-icon>done</mat-icon> Save
+        </button>
+      </div>
+
+      <div
+        class="current-tasks animate__animated animate__fadeInLeft animate__fast"
+      >
+        {{ isOnlyCurrentTasks === true ? "Current Tasks:" : "All Tasks:" }}
+        {{ filteredTasks.length }}
+      </div>
+      <div
+        class="task animate__animated animate__fadeInLeft animate__fast"
+        *ngFor="let task of filteredTasks; index as i"
+      >
+        <span [ngClass]="task.isDone === true ? 'completed-task' : ''"
+          >{{ i + 1 + ". " + task.title | slice : 0 : 30 }}
+          {{ task.title.length > 30 ? "..." : "" }}</span
+        >
+        <div class="task-buttons">
+          <button mat-icon-button color="primary" (click)="openEdit(task, i)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteTask(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" (click)="setTaskAsDone(i)">
+            <mat-icon>done</mat-icon>
+          </button>
+        </div>
+      </div></mat-card-content
     >
-    <div class="task-buttons">
-      <button class="button-edit task-button" (click)="openEdit(task, i)">
-        Edit
-      </button>
-      <button class="button-delete task-button" (click)="deleteTask(i)">
-        Delete
-      </button>
-      <button class="button-done task-button" (click)="setTaskAsDone(i)">
-        Done
-      </button>
-    </div>
-  </div>
+  </mat-card>
 </div>
