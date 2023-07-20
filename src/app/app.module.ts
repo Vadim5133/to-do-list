@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, TasksListComponent],
@@ -15,7 +16,7 @@ import { MaterialModule } from './material/material.module';
     FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-    
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

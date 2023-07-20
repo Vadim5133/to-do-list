@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../shared/task.interface';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tasks-list',
@@ -16,6 +17,8 @@ export class TasksListComponent implements OnInit {
 
   searchValue: string = '';
 
+  sortValue: string = 'none';
+
   filteredTasks: Task[] = [];
 
   editedIndex!: number;
@@ -23,6 +26,8 @@ export class TasksListComponent implements OnInit {
   isOnlyCurrentTasks: boolean = false;
 
   isEdit: boolean = false;
+
+  hide: boolean = true;
 
   ngOnInit(): void {
     this.tasks = [
@@ -40,6 +45,15 @@ export class TasksListComponent implements OnInit {
       },
     ];
     this.filteredTasks = JSON.parse(JSON.stringify(this.tasks));
+
+    this.loginForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/),
+      ]),
+    });
   }
 
   addTask(): void {
@@ -89,12 +103,38 @@ export class TasksListComponent implements OnInit {
     );
   }
 
+  sortCurrentTaskFirst(): void {
+    if (this.sortValue === 'currentTasksFirst') {
+      this.filteredTasks.sort((a, b) => (a.isDone > b.isDone ? 1 : -1));
+    } else if (this.sortValue === 'doneTasksFirst') {
+      this.filteredTasks.sort((a, b) => (b.isDone > a.isDone ? 1 : -1));
+    } else if (this.sortValue === 'none') {
+      this.filteredTasks = this.tasks;
+    }
+  }
+
   toggleShownTasks(): void {
     this.filteredTasks = this.tasks.filter(
       (task) => task.isDone !== this.isOnlyCurrentTasks
     );
     if (this.isOnlyCurrentTasks === false) {
       this.filteredTasks = this.tasks;
+    }
+  }
+
+  testSelection(): void {
+    console.log(this.sortValue);
+  }
+
+  loginForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+  });
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      // Отправка формы - обработка введенных данных
+      console.log(this.loginForm.value);
     }
   }
 }
